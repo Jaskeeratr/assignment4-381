@@ -3,7 +3,7 @@ import Header from './Header';
 import Footer from './Footer';
 import CourseItem from './CourseItem';
 import EnrollmentList from './EnrollmentList';
-import courses from '../data/courses'; // ADD THIS IMPORT
+import courses from '../data/courses';
 
 const CoursesPage = () => {
   const [enrolledCourses, setEnrolledCourses] = useState([]);
@@ -26,10 +26,20 @@ const CoursesPage = () => {
   return (
     <div>
       <Header />
-      <div style={{ display: 'flex', padding: '1rem' }}>
-        <div style={{ flex: 2 }}>
-          <h2>Course Catalog</h2>
-          {courses.map(course => (  // NOW THIS WILL WORK
+      <div style={{ 
+        display: 'flex', 
+        padding: '1rem',
+        gap: '2rem'
+      }}>
+        {/* Course Catalog Section */}
+        <div style={{ 
+          flex: 3,
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+          gap: '1.5rem'
+        }}>
+          <h2 style={{ gridColumn: '1 / -1' }}>Course Catalog</h2>
+          {courses.map(course => (
             <CourseItem 
               key={course.id}
               course={course}
@@ -37,10 +47,14 @@ const CoursesPage = () => {
             />
           ))}
         </div>
-        <EnrollmentList 
-          enrolledCourses={enrolledCourses}
-          onDrop={handleDrop}
-        />
+        
+        {/* Enrollment List Section */}
+        <div style={{ flex: 1 }}>
+          <EnrollmentList 
+            enrolledCourses={enrolledCourses}
+            onDrop={handleDrop}
+          />
+        </div>
       </div>
       <Footer />
     </div>
